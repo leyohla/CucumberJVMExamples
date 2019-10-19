@@ -4,5 +4,6 @@ Feature: seleniumframework.com features
     And I navigate to ABOUT link
     Then I print the html
   Scenario: Browser commands
-  Given I open seleniumframework website
-  Then I perform selenium browser commands
+    Given I open seleniumframework website
+    And I perform selenium browser commands
+    Then I take a screenshot

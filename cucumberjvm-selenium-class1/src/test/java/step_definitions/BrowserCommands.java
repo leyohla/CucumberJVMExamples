@@ -1,13 +1,15 @@
 package step_definitions;
-import org.openqa.selenium.By;
-import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebDriverException;
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
+
+import java.io.File;
+
 public class BrowserCommands{
     public WebDriver driver;
     public BrowserCommands()
@@ -31,10 +33,11 @@ public class BrowserCommands{
     public void i_print_the_html() throws Throwable {
        System.out.println("Browser title-"+driver.getTitle());
     }
-    @Then("^I perform selenium browser commands$")
+    @And("^I perform selenium browser commands$")
     public void i_perform_selenium_browser_commands() throws Throwable {
         // Write code here that turns the phrase above into concrete actions
         driver.get("http://www.seleniumframework.com");
+
         System.out.println("Printing website title...");
         System.out.println(driver.getTitle());
         System.out.println("Printing current title...");
@@ -51,4 +54,16 @@ public class BrowserCommands{
         driver.navigate().refresh();
         System.out.println("Exiting the browser now");
     }
+
+    @Then("^I take a screenshot$")
+    public void TakeScreenShot() throws Exception{
+
+        WebDriver driver = new ChromeDriver();
+        driver.get("http://www.seleniumframework.com");
+        File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+        // Now you can do whatever you need to do with it, for example copy somewhere
+        FileUtils.copyFile(scrFile, new File("C:\\Users\\User\\Documents\\screenshot.png"));
+
+    }
+
 }
